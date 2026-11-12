@@ -826,3 +826,93 @@ body.editing{padding-bottom:132px}
    large. It is a classed span, so it survives Copy HTML. */
 .prose h2 .stepk{display:block;margin-bottom:7px;font:700 17px/1.2 var(--sans);
   letter-spacing:.1em;text-transform:uppercase;color:var(--light-teal)}
+
+/* ===================================================== v7 compact calculator
+   Layout only; colours and type are the existing ones. Label left, stepper
+   right, one ruled row per input. The result figure and its chart share one
+   card. Wide screens put inputs and the card side by side. */
+
+/* step tabs: one grey track, the current step filled, each showing its result */
+.calc.v6 .ctabs{gap:4px;padding:5px;background:#E6ECEA;border-radius:14px}
+.calc.v6 .ctab{gap:2px;padding:10px 14px 11px;background:transparent;border:0;border-radius:10px}
+.calc.v6 .ctab:hover:not(.on){background:rgba(255,255,255,.6)}
+.calc.v6 .ctab.on{background:var(--palo-alto)}
+.calc.v6 .ctab.on .ctn{color:rgba(255,255,255,.85)}
+.calc.v6 .ctd{font:600 16px/1.25 var(--sans)}
+.calc.v6 .ctv{font:900 20px/1.15 var(--serif);font-variant-numeric:tabular-nums;color:var(--palo-alto)}
+.calc.v6 .ctab.on .ctv{color:#fff}
+
+/* input rows */
+.calc.v6 .cpanel{margin-top:10px;container-type:inline-size}
+.calc.v6 .cfield,.calc.v6 .ccarry{display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin:0;padding:10px 0;border-bottom:1px solid var(--line)}
+.calc.v6 .cfield label{margin:0;font-size:16.5px}
+.calc.v6 .ccarry{padding:12px 0;font-size:16px;color:var(--soft)}
+.calc.v6 .ccarry strong{font-size:16.5px}
+
+/* stepper: minus, the value, plus */
+.calc.v6 .cin{flex:0 0 190px;margin:0}
+.calc.v6 .cbump{flex:0 0 44px;min-height:44px;border:0}
+.calc.v6 .cbump:first-child{border-right:1px solid var(--line)}
+.calc.v6 .cbump:last-child{border-left:1px solid var(--line)}
+.calc.v6 .cval{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px}
+.calc.v6 .cval input{flex:0 0 auto;width:4ch;max-width:100%;padding:10px 0;text-align:center;
+  font-weight:700;font-size:17px}
+.calc.v6 .cval .cpre,.calc.v6 .cval .csuf{padding:0;font-size:15px}
+.calc.v6 .chint{margin:10px 0 0;font-size:15px}
+
+/* the result: figure and chart in one card */
+.calc.v6 .cres{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.calc.v6 .cres .cout{margin:0;padding:14px 18px 15px;border-radius:0}
+.calc.v6 .cres .yfig{margin:0;padding:12px 14px 12px;border:0;border-radius:0}
+.calc.v6 .cres .yaxis{display:none}
+
+/* try row: label, chips, reset, all on one line where it fits */
+.calc.v6 .cwhatif{margin-top:14px}
+.calc.v6 .cwrow{align-items:center}
+.calc.v6 .cwlab{margin:0 4px 0 0}
+.calc.v6 .cwreset .cwt{color:var(--muted)}
+.calc.v6 > .creset{display:none}
+
+/* side by side when the panel has the room */
+@container (min-width:720px){
+  .calc.v6 .cgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+  .calc.v6 .cres{margin-top:10px}
+}
+@media (max-width:560px){
+  .calc.v6 .ctab{padding:9px 11px 10px}
+  .calc.v6 .ctd{font-size:14.5px}
+  .calc.v6 .ctv{font-size:18px}
+  .calc.v6 .cfield label{font-size:15.5px}
+  .calc.v6 .cin{flex-basis:150px}
+  .calc.v6 .cbump{flex-basis:38px}
+  .calc.v6 .cwchip{padding:7px 13px}
+}
+
+/* v7b: no grey box. The calculator sits on the page background like the
+   rest of the article, set off by a rule above and below instead. */
+.calc.v6{background:transparent;border:0;border-radius:0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:26px 0 24px}
+.calc.v6 .ctabs{background:#fff;border:1px solid var(--line)}
+.calc.v6 .ctab:hover:not(.on){background:var(--mist)}
+@media (max-width:560px){ .calc.v6{padding:22px 0 20px} }
+
+/* v7: "In future dollars", collapsed under the Step Two chart */
+.cfut{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+.cfut summary{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  list-style:none;cursor:pointer;padding:4px 0;font:600 15.5px/1.3 var(--sans);color:var(--light-teal)}
+.cfut summary::-webkit-details-marker{display:none}
+.cfut summary::after{content:"";flex:0 0 auto;width:8px;height:8px;margin:0 4px 4px 0;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg)}
+.cfut[open] summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
+.cfut summary:hover{color:var(--dark-palo)}
+.cfut summary:focus-visible{outline:2.5px solid var(--navy);outline-offset:2px;border-radius:4px}
+.cfut p{margin:8px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
+.cfut p b{color:var(--navy);font-variant-numeric:tabular-nums}
+.cfut table{width:100%;margin:10px 0 0;border-collapse:collapse;font-size:15px;
+  font-variant-numeric:tabular-nums}
+.cfut th,.cfut td{padding:6px 0;border-bottom:1px solid var(--line);text-align:left;font-weight:400;color:var(--ink)}
+.cfut thead th{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--soft)}
+.cfut td,.cfut thead th:last-child{text-align:right}
+.cfut tbody td{font-weight:600}
